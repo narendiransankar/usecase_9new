@@ -1,5 +1,5 @@
 module "lambda" {
   source = "./modules/lambda"
-  lambda_name = var.lambda_name
+  lambda_name = var.name
   image_uri = var.image
 }
