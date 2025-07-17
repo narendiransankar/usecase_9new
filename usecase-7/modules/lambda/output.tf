@@ -3,5 +3,5 @@ output "lambda_arn" {
 }
 
 output "lambda_name" {
-    value = aws_lambda_function.container_lambda.name
+    value = aws_lambda_function.container_lambda.function_name
 }
