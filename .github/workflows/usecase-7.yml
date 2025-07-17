@@ -1,17 +1,17 @@
-name: Terraform Github Use Case - 6 PR
+name: Terraform Github Use Case - 7 PR
 
 # on:
 #   push:
 #     paths:
-#       - 'usecase-6/**'
-#       - '.github/workflows/usecase-6.yml'
+#       - 'usecase-7/**'
+#       - '.github/workflows/usecase-7.yml'
 #     branches: main
 
 on:
   pull_request:
     paths:
-      - 'usecase-6/**'
-      - '.github/workflows/usecase-6.yml'
+      - 'usecase-7/**'
+      - '.github/workflows/usecase-7.yml'
     types: [opened, synchronize]
   
 permissions:
@@ -24,7 +24,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: usecase-6
+        working-directory: usecase-7
 
     steps:
       - name: Code checkout
@@ -94,7 +94,7 @@ jobs:
       # - name: Terraform Doc
       #   uses: terraform-docs/gh-actions@v1.4.1
       #   with: 
-      #     working-dir: usecase-6
+      #     working-dir: usecase-7
       #     output-file: README.md
       #     output-method: inject
       #     git-push: "true"
@@ -209,7 +209,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: terraform-docs
-          path: usecase-6/README.md
+          path: usecase-7/README.md
           
       - name: Add README.md
         uses: peter-evans/create-pull-request@v7.0.8
