@@ -1,19 +1,19 @@
 variable "stage_name" {
-    type = string
+  type = string
 }
 
 variable "lambda_invoke_arn" {
-    type = string
+  type = string
 }
 
 variable "api_name" {
-    type = string
+  type = string
 }
 
 variable "resource_path" {
-    type = string
+  type = string
 }
 
 variable "lambda_function_name" {
-    type = string
+  type = string
 }

@@ -1,11 +1,11 @@
 variable "name" {
-    type = string
+  type = string
 }
 
 variable "image" {
-    type = string
+  type = string
 }
 
 variable "api_name" {
-    type = string
+  type = string
 }
