@@ -17,7 +17,7 @@ resource "aws_api_gateway_integration" "lambda" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_invoke_arn
+  uri                     = "arn:aws:apigateway:ap-south-1:lambda:path/2015-03-31/functions/${var.lambda_invoke_arn}/invocations"
 }
 
 resource "aws_lambda_permission" "apigw_permission" {
