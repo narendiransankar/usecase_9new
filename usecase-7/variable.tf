@@ -1,7 +1,7 @@
-variabe "name" {
+variable "name" {
     type = string
 }
 
-variabe "image" {
+variable "image" {
     type = string
 }
