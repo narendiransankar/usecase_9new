@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 jobs:
-  terraform-uc6:
+  terraform-uc7:
     runs-on: ubuntu-latest
 
     defaults:
