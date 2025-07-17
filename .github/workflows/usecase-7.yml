@@ -1,4 +1,4 @@
-name: Terraform Github Use Case - 7
+name: Terraform Github Use Case - 7 PR
 
 # on:
 #   push:
@@ -227,4 +227,3 @@ jobs:
           terraform validate
           terraform plan -var-file=terraform.tfvars
           terraform destroy -var-file=terraform.tfvars -auto-approve
-          
