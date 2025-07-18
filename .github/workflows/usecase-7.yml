@@ -107,7 +107,7 @@ jobs:
         run: |
           git config --local user.email ${{ secrets.EMAIL }}
           git config --local user.name ${{ secrets.USER_NAME }}
-          terraform-docs markdown . > README.md.new
+          terraform-docs markdown table . > README.md.new
           mv README.md.new README.md
 
           if [ -f README.md ]; then
