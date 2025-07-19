@@ -17,9 +17,9 @@ variable "security_groups" {
 variable "services" {
     type = map(object({
         image = string
-        cpu = string
-        memory = string
-        container_port = string
+        cpu = number
+        memory = number
+        container_port = number
         target_group_arn = string
     }))
 }
