@@ -11,13 +11,6 @@ resource "aws_lb" "this" {
 }
 
 # Target Groups
-resource "aws_lb_target_group" "default" {
-  name     = "${var.name}-tg-default"
-  port     = 80
-  protocol = "HTTP"
-  target_type = "ip"
-  vpc_id   = var.vpc_id
-}
 
 resource "aws_lb_target_group" "patients" {
   name     = "${var.name}-tg-patients"
@@ -70,7 +63,7 @@ resource "aws_lb_listener_rule" "patients" {
 
 resource "aws_lb_listener_rule" "appointments" {
   listener_arn = aws_lb_listener.appointments.arn
-  priority = 10
+  priority = 11
 
   action {
     type = "forward"
