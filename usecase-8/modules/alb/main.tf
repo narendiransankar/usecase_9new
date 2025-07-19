@@ -18,18 +18,20 @@ resource "aws_lb_target_group" "default" {
   vpc_id   = var.vpc_id
 }
 
-resource "aws_lb_target_group" "images" {
-  name     = "${var.name}-tg-images"
+resource "aws_lb_target_group" "patients" {
+  name     = "${var.name}-tg-patients"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
+  target_type = "ip"
 }
 
-resource "aws_lb_target_group" "register" {
-  name     = "${var.name}-tg-register"
+resource "aws_lb_target_group" "appointments" {
+  name     = "${var.name}-tg-appointments"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
+  target_type = "ip"
 }
 
 # Listener
@@ -39,58 +41,44 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.default.arn
-  }
-}
-
-# Listener Rules
-resource "aws_lb_listener_rule" "images" {
-  listener_arn = aws_lb_listener.http.arn
-  priority     = 10
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.images.arn
-  }
-
-  condition {
-    path_pattern {
-      values = ["/images*"]
+    type             = "fixed-response"
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Please enter valid path"
+      status_code = "503"
     }
   }
 }
 
-resource "aws_lb_listener_rule" "register" {
-  listener_arn = aws_lb_listener.http.arn
-  priority     = 20
+
+resource "aws_lb_listener_rule" "patients" {
+  listener_arn = aws_lb_listener.patients.arn
+  priority = 10
 
   action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.register.arn
+    type = "forward"
+    target_group_arn = aws_lb_target_group.patients.arn
   }
 
   condition {
     path_pattern {
-      values = ["/register*"]
+      values = ["/patients"]
     }
   }
 }
 
-resource "aws_lb_target_group_attachment" "default" {
-  target_group_arn = aws_lb_target_group.default.arn
-  target_id        = var.instance_ids[0]
-  port             = 80
-}
+resource "aws_lb_listener_rule" "appointments" {
+  listener_arn = aws_lb_listener.appointments.arn
+  priority = 10
 
-resource "aws_lb_target_group_attachment" "images" {
-  target_group_arn = aws_lb_target_group.images.arn
-  target_id        = var.instance_ids[1]
-  port             = 80
-}
+  action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.appointments.arn
+  }
 
-resource "aws_lb_target_group_attachment" "register" {
-  target_group_arn = aws_lb_target_group.register.arn
-  target_id        = var.instance_ids[2]
-  port             = 80
+  condition {
+    path_pattern {
+      values = ["/appointments"]
+    }
+  }
 }
