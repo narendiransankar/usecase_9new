@@ -23,8 +23,8 @@ resource "aws_ecs_task_definition" "ecs" {
           hostPort      = each.value.container_port
           protocol = "tcp"
         }
-        essential = true
       ]
+      essential = true
     }
   ])
 }

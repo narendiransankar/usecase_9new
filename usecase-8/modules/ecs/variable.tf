@@ -1,19 +1,19 @@
 variable "cluster_name" {
-    typr = string
+    type = string
 }
 
 variable "container_name" {
-    typr = string
+    type = string
 }
 
 variable "container_image" {
-    typr = string
+    type = string
 }
 
 variable "container_port" {
-    typr = number
+    type = number
 }
 
 variable "execution_role_arn" {
-    typr = string
+    type = string
 }
