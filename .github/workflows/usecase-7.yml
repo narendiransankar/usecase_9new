@@ -1,18 +1,18 @@
 name: Terraform Github Use Case - 7 PR
 
-# on:
-#   push:
-#     paths:
-#       - 'usecase-7/**'
-#       - '.github/workflows/usecase-7.yml'
-#     branches: main
-
 on:
-  pull_request:
+  push:
     paths:
       - 'usecase-7/**'
       - '.github/workflows/usecase-7.yml'
-    types: [opened, synchronize]
+    branches: main
+
+# on:
+#   pull_request:
+#     paths:
+#       - 'usecase-7/**'
+#       - '.github/workflows/usecase-7.yml'
+#     types: [opened, synchronize]
   
 permissions:
   id-token: write
@@ -61,20 +61,20 @@ jobs:
           cat tfplan.json | jq .
           conftest test tfplan.json -p policy
 
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v4
-        with:
-          tflint_version: latest
+      # - name: Setup TFLint
+      #   uses: terraform-linters/setup-tflint@v4
+      #   with:
+      #     tflint_version: latest
           
-      - name: Show version
-        run: tflint --version
+      # - name: Show version
+      #   run: tflint --version
 
-      - name: Init TFLint
-        run: tflint --init
+      # - name: Init TFLint
+      #   run: tflint --init
         
-      - name: Run TFLint
-        run: tflint -f compact
-        continue-on-error: true
+      # - name: Run TFLint
+      #   run: tflint -f compact
+      #   continue-on-error: true
 
       - name: Setup Python for Checkov
         uses: actions/setup-python@v5.6.0
@@ -90,20 +90,6 @@ jobs:
         with:
          name: checkov-info
          path: checkov_result.json
-
-      # - name: Terraform Doc
-      #   uses: terraform-docs/gh-actions@v1.4.1
-      #   with: 
-      #     working-dir: usecase-7
-      #     output-file: README.md
-      #     output-method: inject
-      #     git-push: "true"
-      #     git-commit-message: "Updated latest terraform document"
-      #     git-push-user-name: "Github Actions <actions@github.com>"
-      #     git-push-user-email: "actions@github.com"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-      #   continue-on-error: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -121,7 +107,7 @@ jobs:
         run: |
           git config --local user.email ${{ secrets.EMAIL }}
           git config --local user.name ${{ secrets.USER_NAME }}
-          terraform-docs markdown . > README.md.new
+          terraform-docs markdown table . > README.md.new
           mv README.md.new README.md
 
           if [ -f README.md ]; then
@@ -220,6 +206,9 @@ jobs:
             ```
             ${{ steps.readme.outputs.content }}
 
+      - name: Terraform test
+        run: terraform test
+
       - name: Run implement terraform
         run: |
           terraform init
@@ -227,3 +216,4 @@ jobs:
           terraform validate
           terraform plan -var-file=terraform.tfvars
           terraform destroy -var-file=terraform.tfvars -auto-approve
+          
