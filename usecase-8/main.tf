@@ -5,7 +5,7 @@ module "ecr" {
 
 module "sg" {
     source = "./modules/security-group"
-    vpc_cidr = var.vpc_cidr
+    vpc_id = var.vpc_cidr
     alb_sg_name = var.alb_sg_name
     sg_name = var.sg_name
 }
