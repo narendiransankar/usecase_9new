@@ -3,12 +3,6 @@ module "ecr" {
     repo_name = var.ecr_repo_name
 }
 
-module "sg" {
-    source = "./modules/security-group"
-    vpc_id = var.vpc_cidr
-    alb_sg_name = var.alb_sg_name
-    sg_name = var.sg_name
-}
 
 module "vpc" {
   source          = "./modules/vpc"
@@ -17,4 +11,11 @@ module "vpc" {
   public_subnets  = var.public_subnets
   private_subnets = var.private_subnets
   azs             = var.azs
+}
+
+module "sg" {
+    source = "./modules/security-group"
+    vpc_id = module.vpc.vpc_id
+    alb_sg_name = var.alb_sg_name
+    sg_name = var.sg_name
 }
