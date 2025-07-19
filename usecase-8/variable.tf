@@ -19,10 +19,10 @@ variable "vpc_name" {
     type = string
 }
 
-variable "public_cidr" {
+variable "public_subnets" {
     type = list(string)
 }
 
-variable "private_cidr" {
+variable "private_subnets" {
     type = list(string)
 }
