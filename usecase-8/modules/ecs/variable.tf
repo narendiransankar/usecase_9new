@@ -23,3 +23,7 @@ variable "services" {
         target_group_arn = string
     }))
 }
+
+variable "task_arn_role"{
+    type = string
+}
