@@ -18,8 +18,8 @@ resource "aws_lb_target_group" "patients" {
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   target_type = "ip"
-  
-  health_chech {
+
+  health_check {
     path = "/health"
     protoco = "HTTP"
     matcher = "200"
@@ -37,7 +37,7 @@ resource "aws_lb_target_group" "appointments" {
   vpc_id   = var.vpc_id
   target_type = "ip"
 
-    health_chech {
+    health_check {
     path = "/health"
     protoco = "HTTP"
     matcher = "200"
