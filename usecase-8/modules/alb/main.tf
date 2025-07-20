@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "patients" {
 
   health_check {
     path = "/health"
-    protoco = "HTTP"
+    protocol = "HTTP"
     matcher = "200"
     interval = 30
     timeout = 5
@@ -39,7 +39,7 @@ resource "aws_lb_target_group" "appointments" {
 
     health_check {
     path = "/health"
-    protoco = "HTTP"
+    protocol = "HTTP"
     matcher = "200"
     interval = 30
     timeout = 5
@@ -52,7 +52,7 @@ resource "aws_lb_target_group" "appointments" {
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.this.arn
   port              = 80
-  protocol          = "HTTP"
+  protocoll          = "HTTP"
 
   default_action {
     type             = "fixed-response"
