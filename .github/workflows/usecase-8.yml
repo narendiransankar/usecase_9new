@@ -11,7 +11,7 @@ on:
 #   pull_request:
 #     paths:
 #       - 'usecase-7/**'
-#       - '.github/workflows/usecase-7.yml'
+#       - '.github/workflows/usecase-8.yml'
 #     types: [opened, synchronize]
   
 permissions:
@@ -19,12 +19,12 @@ permissions:
   contents: write
 
 jobs:
-  terraform-uc7:
+  terraform-uc8:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: usecase-7
+        working-directory: usecase-8
 
     steps:
       - name: Code checkout
@@ -43,7 +43,7 @@ jobs:
 
       - name: Pull terraform.tfvars from S3
         run: |
-          aws s3 cp s3://terraform-usecases-batch6/env/usecase-7/terraform.tfvars .
+          aws s3 cp s3://terraform-usecases-batch6/env/usecase-8/terraform.tfvars .
 
       - name: Install OPA
         run: |
@@ -195,7 +195,7 @@ jobs:
         uses: actions/upload-artifact@v4.6.2
         with:
           name: terraform-docs
-          path: usecase-7/README.md
+          path: usecase-8/README.md
           
       - name: Add README.md
         uses: peter-evans/create-pull-request@v7.0.8
