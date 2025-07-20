@@ -207,7 +207,9 @@ jobs:
             ${{ steps.readme.outputs.content }}
 
       - name: Terraform test
-        run: terraform test
+        run: |
+          terraform init
+          terraform test
 
       
       - name: Extract action from commit message
