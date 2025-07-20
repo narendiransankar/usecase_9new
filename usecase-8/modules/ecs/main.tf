@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "ecs" {
   container_definitions = jsonencode([
     {
       name      = each.key
-      image     = each.value.image
+      image     = "${each.value.image}:latest"
       portMappings = [
         {
           containerPort = each.value.container_port
