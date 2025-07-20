@@ -18,6 +18,16 @@ resource "aws_lb_target_group" "patients" {
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   target_type = "ip"
+  
+  health_chech {
+    path = "/health"
+    protoco = "HTTP"
+    matcher = "200"
+    interval = 30
+    timeout = 5
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+  }
 }
 
 resource "aws_lb_target_group" "appointments" {
@@ -26,6 +36,16 @@ resource "aws_lb_target_group" "appointments" {
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   target_type = "ip"
+
+    health_chech {
+    path = "/health"
+    protoco = "HTTP"
+    matcher = "200"
+    interval = 30
+    timeout = 5
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+  }
 }
 
 # Listener
