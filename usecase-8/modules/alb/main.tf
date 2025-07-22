@@ -14,7 +14,7 @@ resource "aws_lb" "this" {
 
 resource "aws_lb_target_group" "patients" {
   name     = "${var.name}-tg-patients"
-  port     = 3000
+  port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   target_type = "ip"
@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "patients" {
 
 resource "aws_lb_target_group" "appointments" {
   name     = "${var.name}-tg-appointments"
-  port     = 3001
+  port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   target_type = "ip"
