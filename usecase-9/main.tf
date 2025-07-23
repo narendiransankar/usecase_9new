@@ -11,7 +11,7 @@ module "eks_cluster" {
 }
 
 module "eks_nodegroup" {
-  source          = "./modules/nodegroup"
+  source          = "./modules/node"
   cluster_name    = var.cluster_name
   node_group_name = "default-node-group"
   node_role_arn   = var.node_role_arn
