@@ -1,0 +1,90 @@
+name: Terraform Github Use Case - 9
+
+# on:
+#   push:
+#     paths:
+#       - 'usecase-9/**'
+#       - '.github/workflows/usecase-9.yml'
+#     branches: main
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'usecase-9/**'
+      - .github/workflows/usecase-9.yml'
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: usecase-9
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4.2.2
+        with: 
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: SetUp AWS
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
+
+      - name: Pull terraform.tfvars from S3
+        run: |
+          aws s3 cp s3://terraform-usecases-batch6/env/usecase-9/terraform.tfvars .
+
+      - name: Initiate terraform
+        run: |
+          terraform init
+          terraform fmt -recursive
+          terraform validate
+          terraform plan
+          terraform apply -auto-approve
+
+  kubernetes:
+    needs: terraform
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: usecase-9
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4.2.2
+        with: 
+          ref: ${{ github.head_ref }}
+
+      - name: SetUp AWS
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.OIDC_ROLE }}
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name ${{ secrets.CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+
+      - name: Verify Cluster Access
+        run: kubectl get nodes
+
+      - name: EKS Deployment + Service + Ingress
+        run: |
+          kubectl apply -f ./modules/app/deployment.yaml
+          kubectl apply -f ./modules/app/service.yaml
