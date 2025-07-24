@@ -49,41 +49,41 @@ jobs:
           terraform fmt -recursive
           terraform validate
           terraform plan
-          terraform apply -auto-approve
+          terraform destroy -auto-approve
 
-  kubernetes:
-    needs: terraform
-    runs-on: ubuntu-latest
+  # kubernetes:
+  #   needs: terraform
+  #   runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: usecase-9
+  #   defaults:
+  #     run:
+  #       working-directory: usecase-9
 
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v4.2.2
-        with: 
-          ref: ${{ github.head_ref }}
+  #   steps:
+  #     - name: Code checkout
+  #       uses: actions/checkout@v4.2.2
+  #       with: 
+  #         ref: ${{ github.head_ref }}
 
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4.1.0
-        with:
-          role-to-assume: arn:aws:iam::012889719104:role/oidc_role
-          aws-region: ap-south-1
+  #     - name: Configure AWS credentials (OIDC)
+  #       uses: aws-actions/configure-aws-credentials@v4.1.0
+  #       with:
+  #         role-to-assume: arn:aws:iam::012889719104:role/oidc_role
+  #         aws-region: ap-south-1
 
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v3
+  #     - name: Setup kubectl
+  #       uses: azure/setup-kubectl@v3
 
-      - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region ap-south-1 --name eks-cluster
+  #     - name: Update kubeconfig
+  #       run: aws eks update-kubeconfig --region ap-south-1 --name eks-cluster
 
-      - name: Verify Cluster Access
-        run: |
-          kubectl get nodes -o wide
-          kubectl get svc -o wide
-          kubectl get pods -o wide
+  #     - name: Verify Cluster Access
+  #       run: |
+  #         kubectl get nodes -o wide
+  #         kubectl get svc -o wide
+  #         kubectl get pods -o wide
 
-      - name: EKS Deployment + Service + Ingress
-        run: |
-          kubectl apply -f ./modules/app/deployment.yaml
-          kubectl apply -f ./modules/app/service.yaml
+  #     - name: EKS Deployment + Service + Ingress
+  #       run: |
+  #         kubectl apply -f ./modules/app/deployment.yaml
+  #         kubectl apply -f ./modules/app/service.yaml
