@@ -3,6 +3,6 @@ terraform {
     bucket       = "new-state-temp"
     key          = "usecase9/terraform.tfstate"
     region       = "ap-south-1"
-    use_lockfile = true
+    use_lockfile = false
   }
 }
