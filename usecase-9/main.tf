@@ -20,6 +20,8 @@ module "eks_nodegroup" {
   min_size        = 1
   max_size        = 1
   instance_type   = "t3.medium"
+
+  depends_on = [module.eks_cluster]
 }
 
 
