@@ -21,3 +21,13 @@ module "eks_nodegroup" {
   max_size        = 1
   instance_type   = "t3.medium"
 }
+
+
+module "vpc" {
+  source          = "./modules/vpc"
+  vpc_name        = var.vpc_name
+  vpc_cidr        = var.vpc_cidr
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
+  azs             = var.azs
+}
