@@ -1,0 +1,10 @@
+cluster_name     = "eks-cluster"
+cluster_role_arn = "arn:aws:iam::012889719104:role/AmazonEKSAutoClusterRole"
+subnet_ids       = ["subnet-00d967dbdcb3f395b", "subnet-0bdf7a0c0e9f6f110"]
+node_role_arn    = "arn:aws:iam::012889719104:role/AmazonEKSAutoNodeRole"
+region           = "ap-south-1"
+vpc_cidr         = "10.0.0.0/16"
+public_subnets   = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+private_subnets  = ["10.0.21.0/24", "10.0.22.0/24", "10.0.23.0/24"]
+azs              = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
+vpc_name         = "eks-vpc-new-1"
