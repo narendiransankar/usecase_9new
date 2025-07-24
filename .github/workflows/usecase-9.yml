@@ -38,7 +38,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
           role-to-assume: arn:aws:iam::012889719104:role/oidc_role
           aws-region: ap-south-1
@@ -66,7 +66,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4.1.0
         with:
           role-to-assume: arn:aws:iam::012889719104:role/oidc_role
           aws-region: ap-south-1
