@@ -1,8 +1,8 @@
 terraform {
   backend "s3" {
-    bucket       = "terraform-usecases-batch6"
+    bucket       = "new-state-temp"
     key          = "usecase9/terraform.tfstate"
-    region       = "eu-west-1"
+    region       = "ap-south-1"
     use_lockfile = true
   }
 }
