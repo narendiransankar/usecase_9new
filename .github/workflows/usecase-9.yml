@@ -82,7 +82,10 @@ jobs:
         run: aws eks update-kubeconfig --region ap-south-1 --name eks-cluster
 
       - name: Verify Cluster Access
-        run: kubectl get nodes
+        run: |
+          kubectl get nodes -o wide
+          kubectl get svc -o wide
+          kubectl get pods -o wide
 
       - name: EKS Deployment + Service + Ingress
         run: |
